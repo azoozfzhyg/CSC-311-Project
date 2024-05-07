@@ -1,5 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+
+FILE *ToMatchWith;
+FILE *OpenFile(char filename[]);
 
 void computeLPSArray(char *pattern, int m, int *lps) {
     int len = 0;  // Length of the previous longest prefix suffix
@@ -58,4 +62,35 @@ int main() {
     KMPSearch(text, pattern);
     
     return 0;
+}
+
+FILE *OpenFile(char filename[]){
+    ToMatchWith = fopen(filename, "r");
+    if (ToMatchWith == NULL) {
+        printf("Could not open file %s\n", filename);
+        exit(1);
+    }
+    return ToMatchWith;
+}
+
+void computeLPSArray(char *pattern, int m, int *lps) {
+    int len = 0;  // Length of the previous longest prefix suffix
+
+    lps[0] = 0;  // lps[0] is always 0
+
+    int i = 1;
+    while (i < m) {
+        if (pattern[i] == pattern[len]) {
+            len++;
+            lps[i] = len;
+            i++;
+        } else {
+            if (len != 0) {
+                len = lps[len - 1];
+            } else {
+                lps[i] = 0;
+                i++;
+            }
+        }
+    }
 }

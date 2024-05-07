@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 FILE *ToMatchWith;
 FILE *OpenFile(char filename[]);
@@ -17,7 +18,14 @@ int main() {
         filename[10] = '0' + i%10;
         filename[9] = '0' + (i/10);
         filename[8] = '0' + (i/100);
+        clock_t start_time = clock();
+
         int index = bruteForceStringMatch( pattern, Filesize, filename);
+        
+        clock_t end_time = clock();
+        double elapsed_time = ((double) (end_time - start_time));
+        printf("Time taken for iteration %d: %f\n", i, elapsed_time);
+
         if (index == -1) {
             printf("Pattern not found in iteration %d\n", i);
         } else {
