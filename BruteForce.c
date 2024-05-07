@@ -13,10 +13,10 @@ int main() {
     char filename[] = "TestDoc#000.txt";
     char pattern[] = "lkx9OMZBwRuCMwk'R5v26toxPYB2EHuYWsC";
     for(i = 0 ; i< 100; i++){
-            Filesize += 100;
-            filename[10] = '0' + i%10;
-            filename[9] = '0' + (i/10);
-            filename[8] = '0' + (i/100);
+        Filesize += 100;
+        filename[10] = '0' + i%10;
+        filename[9] = '0' + (i/10);
+        filename[8] = '0' + (i/100);
         int index = bruteForceStringMatch( pattern, Filesize, filename);
         if (index == -1) {
             printf("Pattern not found in iteration %d\n", i);
