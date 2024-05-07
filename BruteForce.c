@@ -11,7 +11,7 @@ int main() {
     int i;
     int Filesize = 0;
     char filename[] = "TestDoc#000.txt";
-    char pattern[] = "sample";
+    char pattern[] = "lkx9OMZBwRuCMwk'R5v26toxPYB2EHuYWsC";
     for(i = 0 ; i< 100; i++){
             Filesize += 100;
             filename[10] = '0' + i%10;
