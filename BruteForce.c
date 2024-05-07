@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-FILE *ToMatchIn;
+FILE *ToMatchWith;
 FILE *OpenFile(char filename[]);
 
-int bruteForceStringMatch(char *text, char *pattern, int Filesize, char filename[]);
+int bruteForceStringMatch(char *pattern, int Filesize, char filename[]);
 
 int main() {
     int i;
@@ -17,7 +17,7 @@ int main() {
             filename[10] = '0' + i%10;
             filename[9] = '0' + (i/10);
             filename[8] = '0' + (i/100);
-        int index = bruteForceStringMatch("", pattern, Filesize, filename);
+        int index = bruteForceStringMatch( pattern, Filesize, filename);
         if (index == -1) {
             printf("Pattern not found in iteration i\n", i);
         } else {
@@ -29,33 +29,33 @@ int main() {
 }
 
 FILE *OpenFile(char filename[]){
-    ToMatchIn = fopen(filename, "r");
-    if (ToMatchIn == NULL) {
+    ToMatchWith = fopen(filename, "r");
+    if (ToMatchWith == NULL) {
         printf("Could not open file %s\n", filename);
         exit(1);
     }
-    return ToMatchIn;
+    return ToMatchWith;
 }
 
-int bruteForceStringMatch(char *text, char *pattern, int Filesize, char filename[]) {
-    int n = strlen(text);
-    int m = Filesize;
-    filename = OpenFile(filename);
+int bruteForceStringMatch(char *pattern, int Filesize, char filename[]) {
+    int n = Filesize;
+    int m = strlen(pattern);
+    ToMatchWith = OpenFile(filename);
     for (int i = 0; i <= n - m; i++) {
         int j;
         for (j = 0; j < m; j++) {
-            if (text[i + j] != fgetc(filename)) {
+            if (fgetc(filename) != pattern[j]) {
                 break;
             }
         }
         if (j == m) {
             // Pattern found at index i in the text
-            fclose(ToMatchIn);
+            fclose(ToMatchWith);
             return i;
         }
     }
     // Pattern not found in the text
-    fclose(ToMatchIn);
+    fclose(ToMatchWith);
     return -1;
 }
 
