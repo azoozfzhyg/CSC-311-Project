@@ -10,7 +10,7 @@ int bruteForceStringMatch(char *pattern, int Filesize, char filename[]);
 int main() {
     int i;
     int Filesize = 0;
-    char filename[] = "Test.Doc#000.txt";
+    char filename[] = "TestDoc#000.txt";
     char pattern[] = "sample";
     for(i = 0 ; i< 100; i++){
             Filesize += 100;
