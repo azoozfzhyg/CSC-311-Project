@@ -12,7 +12,7 @@ int main() {
     int i;
     int Filesize = 0;
     char filename[] = "TestDoc#000.txt";
-    char pattern[] = "lkx9OMZBwRuCMwk'R5v26toxPYB2EHuYWsC";
+    char pattern[] = "4H7#'.1.844XE3jJcb5W-fN'.Xve!WLh#qn!pUzBfHmZ3G-Po4mnM4dEfpQAM48d23lkx9OMZBwRuCMwk'R5v26toxPYB2EHuYWsCtTOeUc!lHHowxHgMn4buMIYsVP1";
     for(i = 0 ; i< 100; i++){
         Filesize += 100;
         filename[10] = '0' + i%10;
@@ -21,7 +21,7 @@ int main() {
         clock_t start_time = clock();
 
         int index = bruteForceStringMatch( pattern, Filesize, filename);
-        
+
         clock_t end_time = clock();
         double elapsed_time = ((double) (end_time - start_time));
         printf("Time taken for iteration %d: %f\n", i, elapsed_time);

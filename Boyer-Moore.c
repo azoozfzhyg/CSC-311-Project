@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define NO_OF_CHARS 256
+#define NO_OF_CHARS 69
 
 int max(int a, int b) {
     return (a > b) ? a : b;
