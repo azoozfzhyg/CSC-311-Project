@@ -19,9 +19,9 @@ int main() {
             filename[8] = '0' + (i/100);
         int index = bruteForceStringMatch( pattern, Filesize, filename);
         if (index == -1) {
-            printf("Pattern not found in iteration i\n", i);
+            printf("Pattern not found in iteration %d\n", i);
         } else {
-            printf("Pattern found at index %d, in iteration i\n", index, i);
+            printf("Pattern found at index %d, in iteration %d\n", index, i);
         }
     }
 
