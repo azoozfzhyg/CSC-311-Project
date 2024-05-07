@@ -21,26 +21,31 @@ int KMPSearch(char filename[],int Filesize, char *pattern) {
     int j = 0;  // index for pattern[]
 
     while (i < n) {
-        if (pattern[j] == fgetc(ToMatchWith)) {
+        char c = fgetc(ToMatchWith);
+        if (pattern[j] == c) {
             j++;
             i++;
         }
+        else
         if (j == m) {
             fclose(ToMatchWith);
             return (i - j);
-        } else if (i < n && pattern[j] != fgetc(ToMatchWith)) {
+        } else if (i < n && pattern[j] != c) {
             if (j != 0){
                 j = lps[j - 1];
-                fseek(ToMatchWith, -2, SEEK_CUR);
             }
-            else
+            else{
                 i++;
+                fgetc(ToMatchWith);
+            }
         }
     }
+    fclose(ToMatchWith);
+    return -1;
 }
 
 int main() {
-    char pattern[] = "4H7#'.1.844XE3jJcb5W-fN'.Xve!WLh#qn!pUzBfHmZ3G-Po4mnM4dEfpQAM48d23lkx9OMZBwRuCMwk'R5v26toxPYB2EHuYWsCtTOeUc!lHHowxHgMn4buMIYsVP1";
+    char pattern[] = "hJu#OWsIYbKwz?6wgeQJXWfSz-.J83?VVKf1jXw";
     char filename[] = "TestDoc#000.txt";
     int i;
     int Filesize = 0;

@@ -62,8 +62,8 @@ void KMPSearch(char *pat, FILE *fp) {
 }
 
 int main() {
-    char pattern[] = "pattern"; // Pattern to search for
-    FILE *file = fopen("example.txt", "r"); // Open the text file for reading
+    char pattern[] = "pRK9Y28D"; // Pattern to search for
+    FILE *file = fopen("TestDoc#099.txt", "r"); // Open the text file for reading
     if (file == NULL) {
         perror("Error opening file");
         return 1;
