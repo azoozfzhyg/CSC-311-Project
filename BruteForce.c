@@ -44,7 +44,7 @@ int bruteForceStringMatch(char *pattern, int Filesize, char filename[]) {
     for (int i = 0; i <= n - m; i++) {
         int j;
         for (j = 0; j < m; j++) {
-            if (fgetc(filename) != pattern[j]) {
+            if (fgetc(ToMatchWith) != pattern[j]) {
                 break;
             }
         }
