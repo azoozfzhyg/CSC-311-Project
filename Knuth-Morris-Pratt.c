@@ -19,14 +19,16 @@ int KMPSearch(char filename[],int Filesize, char *pattern) {
 
     int i = 0;  // index for text[]
     int j = 0;  // index for pattern[]
-
+    char c = fgetc(ToMatchWith);
     while (i < n) {
-        char c = fgetc(ToMatchWith);
         if (pattern[j] == c) {
             j++;
             i++;
         }
-        else
+        else{
+            fseek(ToMatchWith, -1, SEEK_CUR);
+            c = fgetc(ToMatchWith);
+        }
         if (j == m) {
             fclose(ToMatchWith);
             return (i - j);
@@ -36,7 +38,7 @@ int KMPSearch(char filename[],int Filesize, char *pattern) {
             }
             else{
                 i++;
-                fgetc(ToMatchWith);
+                c = fgetc(ToMatchWith);
             }
         }
     }
@@ -45,7 +47,7 @@ int KMPSearch(char filename[],int Filesize, char *pattern) {
 }
 
 int main() {
-    char pattern[] = "hJu#OWsIYbKwz?6wgeQJXWfSz-.J83?VVKf1jXw";
+    char pattern[] = "VJFYDzC64RZwZKaeGuGXpeNFQwjzO5j,P";
     char filename[] = "TestDoc#000.txt";
     int i;
     int Filesize = 0;
@@ -55,7 +57,6 @@ int main() {
         filename[9] = '0' + (i/10);
         filename[8] = '0' + (i/100);
         clock_t start_time = clock();
-
         int index = KMPSearch(filename,Filesize, pattern);
         clock_t end_time = clock();
         double elapsed_time = ((double) (end_time - start_time));
