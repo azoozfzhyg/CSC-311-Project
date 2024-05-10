@@ -1,3 +1,4 @@
+//working code
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -25,7 +26,7 @@ int main() {
 
         toMatchWtih = OpenFile(filename);
 
-        fread(text,1,10000,toMatchWtih);
+        fread(text,1,Filesize,toMatchWtih);
 
         clock_t start_time = clock();
         int index = KMPSearch(text, pattern);

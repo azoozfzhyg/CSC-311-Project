@@ -1,9 +1,10 @@
+//working code
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
 
-#define NO_OF_CHARS 69
+#define NO_OF_CHARS 256
 
 FILE *ToMatchWith;
 
@@ -23,7 +24,7 @@ int main() {
     FILE *toMatchWtih;
     char *text = (char*) calloc(10001,sizeof(char));
     char filename[] = "TestDoc#000.txt";
-    for (i = 0; i < 10000; i++) {
+    for (i = 0; i < 100; i++) {
         Filesize += 100;
         filename[10] = '0' + i%10;
         filename[9] = '0' + (i/10);
@@ -31,8 +32,8 @@ int main() {
 
         toMatchWtih = OpenFile(filename);
 
-        fread(text,1,10000,toMatchWtih);
-
+        fread(text,1,Filesize,toMatchWtih);
+        
         clock_t start_time = clock();
         int index = boyerMooreSearch(text, pattern);
         clock_t end_time = clock();
@@ -77,7 +78,7 @@ int boyerMooreSearch(char *txt, char *pat) {
     int n = strlen(txt);
 
     int badchar[NO_OF_CHARS];
-
+    
     badCharHeuristic(pat, m, badchar);
 
     int s = 0;
@@ -89,9 +90,10 @@ int boyerMooreSearch(char *txt, char *pat) {
 
         if (j < 0) {
             return s;
-            s += (s + m < n) ? m - badchar[txt[s + m]] : 1;
+            //s += (s + m < n) ? m - badchar[(int)txt[s + m]] : 1;
         } else {
-            s += max(1, j - badchar[txt[s + j]]);
+            s += max(1, j - badchar[(int)txt[s + j]]);
         }
     }
+    return -1;
 }
