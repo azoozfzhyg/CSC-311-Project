@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <time.h>
+#include <sys/time.h>
 
 FILE *ToMatchWith;
 
@@ -18,6 +18,7 @@ int main() {
     FILE *toMatchWtih;
     char *text = (char*) calloc(10001,sizeof(char));
     char filename[] = "TestDoc#000.txt";
+    struct timeval start, end;
     for (i = 0; i < 100; i++) {
         Filesize += 100;
         filename[10] = '0' + i%10;
@@ -28,12 +29,15 @@ int main() {
 
         fread(text,1,Filesize,toMatchWtih);
 
-        clock_t start_time = clock();
-        int index = KMPSearch(text, pattern);
-        clock_t end_time = clock();
+        gettimeofday(&start, NULL);
 
-        double elapsed_time = ((double) (end_time - start_time));
-        printf("Time taken for iteration %d: %f\n", i, elapsed_time);
+        int index = KMPSearch(text, pattern);
+
+        gettimeofday(&end, NULL);
+        double time_taken;
+        time_taken = (end.tv_sec - start.tv_sec) * 1e6;
+        time_taken = (time_taken + (end.tv_usec - start.tv_usec)) * 1e-6;
+        printf("Time taken for iteration %d: %lf\n", i, time_taken);
 
         if (index == -1) {
             printf("Pattern not found in iteration %d\n", i);
