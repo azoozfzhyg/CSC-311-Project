@@ -1,66 +1,43 @@
+//working code
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <time.h>
+#include <stdlib.h>
+#include <sys/time.h>
 
 FILE *ToMatchWith;
+
 FILE *OpenFile(char filename[]);
 
 void computeLPSArray(char *pattern, int m, int *lps);
 
-int KMPSearch(char filename[],int Filesize, char *pattern) {
-    int n = Filesize;
-    int m = strlen(pattern);
-
-    ToMatchWith = OpenFile(filename);
-
-    int lps[m];
-    computeLPSArray(pattern, m, lps);
-
-    int i = 0;  // index for text[]
-    int j = 0;  // index for pattern[]
-    char c = fgetc(ToMatchWith);
-    while (i < n) {
-        if (pattern[j] == c) {
-            j++;
-            i++;
-        }
-        else{
-            fseek(ToMatchWith, -1, SEEK_CUR);
-            c = fgetc(ToMatchWith);
-        }
-        if (j == m) {
-            fclose(ToMatchWith);
-            return (i - j);
-        } else if (i < n && pattern[j] != c) {
-            if (j != 0){
-                j = lps[j - 1];
-            }
-            else{
-                i++;
-                c = fgetc(ToMatchWith);
-            }
-        }
-    }
-    fclose(ToMatchWith);
-    return -1;
-}
+int KMPSearch(char *text, char *pattern);
 
 int main() {
-    char pattern[] = "VJFYDzC64RZwZKaeGuGXpeNFQwjzO5j,P";
+    char pattern[] = "QbY";
+    int i,Filesize = 0;
+    FILE *toMatchWtih;
+    char *text = (char*) calloc(10001,sizeof(char));
     char filename[] = "TestDoc#000.txt";
-    int i;
-    int Filesize = 0;
-    for(i = 0 ; i< 100; i++){
+    struct timeval start, end;
+    for (i = 0; i < 100; i++) {
         Filesize += 100;
         filename[10] = '0' + i%10;
         filename[9] = '0' + (i/10);
         filename[8] = '0' + (i/100);
-        clock_t start_time = clock();
-        int index = KMPSearch(filename,Filesize, pattern);
-        clock_t end_time = clock();
-        double elapsed_time = ((double) (end_time - start_time));
-        printf("Time taken for iteration %d: %f\n", i, elapsed_time);
+
+        toMatchWtih = OpenFile(filename);
+
+        fread(text,1,Filesize,toMatchWtih);
+
+        gettimeofday(&start, NULL);
+
+        int index = KMPSearch(text, pattern);
+
+        gettimeofday(&end, NULL);
+        double time_taken;
+        time_taken = (end.tv_sec - start.tv_sec) * 1e6;
+        time_taken = (time_taken + (end.tv_usec - start.tv_usec)) * 1e-6;
+        printf("Time taken for iteration %d: %lf\n", i, time_taken);
 
         if (index == -1) {
             printf("Pattern not found in iteration %d\n", i);
@@ -101,4 +78,32 @@ void computeLPSArray(char *pattern, int m, int *lps) {
             }
         }
     }
+}
+
+int KMPSearch(char *text, char *pattern) {
+    int n = strlen(text);
+    int m = strlen(pattern);
+
+    int lps[m];
+    computeLPSArray(pattern, m, lps);
+
+    int i = 0;  // index for text[]
+    int j = 0;  // index for pattern[]
+
+    while (i < n) {
+        if (pattern[j] == text[i]) {
+            j++;
+            i++;
+        }
+
+        if (j == m) {
+            return (i - j);
+        } else if (i < n && pattern[j] != text[i]) {
+            if (j != 0)
+                j = lps[j - 1];
+            else
+                i++;
+        }
+    }
+    return -1;
 }
