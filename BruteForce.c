@@ -14,7 +14,9 @@ int main() {
     int i;
     int Filesize = 0;
     char filename[] = "TestDoc#000.txt";
-    char pattern[] = "4H7#'.1.844XE3jJcb5W-f";
+    //you can change the pattern to any string you want to search for
+    char pattern[] = "wEDo";
+    /////////////////////////////////////////////////
     struct timeval start, end;
     for(i = 0 ; i< 100; i++){
         Filesize += 100;
@@ -32,11 +34,11 @@ int main() {
         time_taken = (time_taken + (end.tv_usec - start.tv_usec)) * 1e-6;
         printf("Time taken for iteration %d: %lf\n", i, time_taken);
 
-        if (index == -1) {
+        /*if (index == -1) {
             printf("Pattern not found in iteration %d\n", i);
         } else {
             printf("Pattern found at index %d, in iteration %d\n", index, i);
-        }
+        }*/
     }
 
     return 0;

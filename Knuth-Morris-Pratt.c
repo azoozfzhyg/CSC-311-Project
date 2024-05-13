@@ -13,7 +13,9 @@ void computeLPSArray(char *pattern, int m, int *lps);
 int KMPSearch(char *text, char *pattern);
 
 int main() {
-    char pattern[] = "QbY";
+    //you can change the pattern to any string you want to search for
+    char pattern[] = "wEDo";
+    /////////////////////////////////////////////////
     int i,Filesize = 0;
     FILE *toMatchWtih;
     char *text = (char*) calloc(10001,sizeof(char));

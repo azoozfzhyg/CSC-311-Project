@@ -19,7 +19,10 @@ void badCharHeuristic(char *str, int size, int badchar[NO_OF_CHARS]);
 
 
 int main() {
-    char pattern[] = "QbY";
+    //you can change the pattern to any string you want to search for
+    char pattern[] = "wEDo";
+    /////////////////////////////////////////////////
+
     int i,Filesize = 0;
     struct timeval start, end;
     FILE *toMatchWtih;
@@ -43,13 +46,13 @@ int main() {
         double time_taken;
         time_taken = (end.tv_sec - start.tv_sec) * 1e6;
         time_taken = (time_taken + (end.tv_usec - start.tv_usec)) * 1e-6;
-        printf("Time taken for iteration %d: %lf\n", i, time_taken);
+        printf("%lf\n", time_taken);
 
-        if (index == -1) {
+        /*if (index == -1) {
             printf("Pattern not found in iteration %d\n", i);
         } else {
             printf("Pattern found at index %d, in iteration %d\n", index, i);
-        }
+        }*/
     }
     return 0;
 }
